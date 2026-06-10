@@ -1,26 +1,35 @@
-const mongoose = require('mongoose');
+const { DataTypes } = require('sequelize');
+const { sequelize } = require('../utils/db');
 
-const warningSchema = new mongoose.Schema({
+const Warning = sequelize.define('Warning', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
     userId: {
-        type: String,
-        required: true
+        type: DataTypes.STRING,
+        allowNull: false
     },
     guildId: {
-        type: String,
-        required: true
+        type: DataTypes.STRING,
+        allowNull: false
     },
     moderatorId: {
-        type: String,
-        required: true
+        type: DataTypes.STRING,
+        allowNull: false
     },
     reason: {
-        type: String,
-        required: true
+        type: DataTypes.STRING,
+        allowNull: false
     },
     timestamp: {
-        type: Date,
-        default: Date.now
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
     }
+}, {
+    tableName: 'warnings',
+    timestamps: false
 });
 
-module.exports = mongoose.model('Warning', warningSchema);
+module.exports = Warning;
