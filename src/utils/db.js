@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize');
 
 const sequelize = new Sequelize(
-    process.env.DATABASE_URL || 'postgresql://postgres:password@localhost:5432/discord_bot',
+    process.env.MonogoDB_URL || 'mongodb+srv://nahouli2012_db_user:<db_password>@lillypad.ui3sh7d.mongodb.net/?appName=LILLYPAD',
     {
         dialect: 'postgres',
         logging: false,
