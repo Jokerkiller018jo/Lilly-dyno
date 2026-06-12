@@ -1,7 +1,7 @@
 {
-  "name": "dyno-clone",
+  "name": "Echo",
   "version": "1.0.0",
-  "description": "A Discord bot with PostgreSQL integration",
+  "description": "A Discord bot with MonogDB integration",
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
