@@ -1,26 +1,26 @@
-const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize(
-    process.env.MonogoDB_URL || 'mongodb+srv://nahouli2012_db_user:<db_password>@lillypad.ui3sh7d.mongodb.net/?appName=LILLYPAD',
-    {
-        dialect: 'postgres',
-        logging: false,
-        ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
-    }
-);
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = "mongodb+srv://nahouli2012_db_user:<db_password>@lillypad.ui3sh7d.mongodb.net/?appName=LILLYPAD";
 
-const connectDB = async () => {
-    try {
-        await sequelize.authenticate();
-        console.log('PostgreSQL Connected successfully');
-        
-        // Sync models with database
-        await sequelize.sync({ alter: false });
-        console.log('Database models synced');
-    } catch (error) {
-        console.error(`Error connecting to PostgreSQL: ${error.message}`);
-        process.exit(1);
-    }
-};
+// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
+});
 
-module.exports = { connectDB, sequelize };
+async function run() {
+  try {
+    // Connect the client to the server	(optional starting in v4.7)
+    await client.connect();
+    // Send a ping to confirm a successful connection
+    await client.db("admin").command({ ping: 1 });
+    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+  } finally {
+    // Ensures that the client will close when you finish/error
+    await client.close();
+  }
+}
+run().catch(console.dir);
